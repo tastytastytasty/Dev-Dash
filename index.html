@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev Dash</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="dark">
+
+  <!-- ===== MAIN MENU ===== -->
+  <div id="screen-menu" class="screen active">
+    <div class="container">
+      <header class="game-header">
+        <h1 class="game-title">Dev<span class="accent">Dash</span></h1>
+        <p class="game-subtitle">Type fast. Score big.</p>
+        <button id="theme-toggle" class="btn-icon" aria-label="Toggle theme">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+      </header>
+
+      <section class="selection-group">
+        <h2 class="section-label">Category</h2>
+        <div class="option-row" id="category-options">
+          <button class="opt-btn active" data-value="indonesian">🇮🇩 Indonesian</button>
+          <button class="opt-btn" data-value="english">🇬🇧 English</button>
+          <button class="opt-btn" data-value="programming">💻 Programming</button>
+        </div>
+      </section>
+
+      <section class="selection-group">
+        <h2 class="section-label">Difficulty</h2>
+        <div class="option-row" id="difficulty-options">
+          <button class="opt-btn active" data-value="easy">Easy</button>
+          <button class="opt-btn" data-value="medium">Medium</button>
+          <button class="opt-btn" data-value="hard">Hard</button>
+        </div>
+      </section>
+
+      <section class="best-score-preview" id="best-score-preview">
+        <div class="best-item">
+          <span class="best-label">Best Score</span>
+          <span class="best-value" id="preview-best-score">—</span>
+        </div>
+        <div class="best-item">
+          <span class="best-label">Best WPS</span>
+          <span class="best-value" id="preview-best-wps">—</span>
+        </div>
+      </section>
+
+      <button id="btn-start" class="btn-primary">Start Game</button>
+    </div>
+  </div>
+
+  <!-- ===== GAMEPLAY SCREEN ===== -->
+  <div id="screen-game" class="screen">
+    <div class="container">
+      <div class="game-topbar">
+        <div class="stat-box">
+          <span class="stat-label">Score</span>
+          <span class="stat-value" id="current-score">0</span>
+        </div>
+        <div class="stat-box timer-box">
+          <span class="stat-label">Time</span>
+          <span class="stat-value" id="timer-display">60</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label" id="game-meta">Easy · EN</span>
+          <span class="stat-value" id="submitted-count">0 typed</span>
+        </div>
+      </div>
+
+      <div class="word-area">
+        <div class="word-card">
+          <span id="current-word">—</span>
+        </div>
+        <div class="word-hint" id="word-hint">Start typing!</div>
+      </div>
+
+      <div class="input-area">
+        <input
+          type="text"
+          id="word-input"
+          class="word-input"
+          placeholder="Type here and press Enter…"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RESULT SCREEN ===== -->
+  <div id="screen-result" class="screen">
+    <div class="container">
+      <h2 class="result-title">Time's Up!</h2>
+
+      <div class="result-grid">
+        <div class="result-card accent-card">
+          <span class="result-label">Final Score</span>
+          <span class="result-value" id="result-score">0</span>
+        </div>
+        <div class="result-card">
+          <span class="result-label">Accuracy</span>
+          <span class="result-value" id="result-accuracy">0%</span>
+        </div>
+        <div class="result-card">
+          <span class="result-label">Words / sec</span>
+          <span class="result-value" id="result-wps">0.00</span>
+        </div>
+        <div class="result-card highlight-card">
+          <span class="result-label">🏆 Best Score</span>
+          <span class="result-value" id="result-best-score">0</span>
+        </div>
+        <div class="result-card highlight-card">
+          <span class="result-label">🏆 Best WPS</span>
+          <span class="result-value" id="result-best-wps">0.00</span>
+        </div>
+        <div class="result-card">
+          <span class="result-label">Category</span>
+          <span class="result-value" id="result-category">—</span>
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button id="btn-restart" class="btn-primary">Play Again</button>
+        <button id="btn-menu" class="btn-secondary">Main Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
