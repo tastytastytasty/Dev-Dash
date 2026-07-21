@@ -94,6 +94,7 @@ body {
   top: 0;
   right: 0;
   background: var(--surface2);
+  color: var(--accent);
   border: 1px solid var(--border);
   border-radius: 50px;
   cursor: pointer;
