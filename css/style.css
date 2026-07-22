@@ -5,33 +5,36 @@
 
 /* ── Custom Properties ── */
 :root {
-  --bg:          #0f1117;
-  --surface:     #1a1d27;
-  --surface2:    #22263a;
-  --border:      #2e3250;
-  --text:        #e8eaf6;
-  --text-muted:  #8b90b0;
-  --accent:      #6c63ff;
-  --accent-glow: rgba(108, 99, 255, 0.35);
-  --success:     #4caf98;
-  --danger:      #f06292;
-  --warn:        #ffb74d;
+  --bg:          #222831;
+  --surface:     #393E46;
+  --surface2:    #2F343B;
+  --border:      #4A505A;
+  --text:        #EEEEEE;
+  --text-muted:  #BFC3C7;
+  --accent:      #00ADB5;
+  --accent-glow: rgba(0, 173, 181, 0.35);
+  --success:     #3FCB8D;
+  --danger:      #FF6B6B;
+  --warn:        #F8C146;
   --radius:      12px;
   --radius-lg:   20px;
   --transition:  0.25s ease;
-  --shadow:      0 4px 24px rgba(0,0,0,0.4);
+  --shadow:      0 4px 24px rgba(0, 0, 0, 0.40);
 }
 
 body.light {
-  --bg:          #f0f2ff;
-  --surface:     #ffffff;
-  --surface2:    #e8eaf6;
-  --border:      #c5cae9;
-  --text:        #1a1d2e;
-  --text-muted:  #6068a0;
-  --accent:      #5c54e8;
-  --accent-glow: rgba(92, 84, 232, 0.2);
-  --shadow:      0 4px 24px rgba(0,0,0,0.12);
+  --bg:          #EEEEEE;
+  --surface:     #FFFFFF;
+  --surface2:    #E4E6E7;
+  --border:      #C7CDD3;
+  --text:        #222831;
+  --text-muted:  #5F6670;
+  --accent:      #00ADB5;
+  --accent-glow: rgba(0, 173, 181, 0.20);
+  --success:     #2AA876;
+  --danger:      #E35D6A;
+  --warn:        #E8A317;
+  --shadow:      0 4px 24px rgba(34, 40, 49, 0.12);
 }
 
 /* ── Reset & Base ── */
@@ -56,7 +59,7 @@ body {
 .screen.active { display: block; }
 
 .container {
-  max-width: 560px;
+  max-width: 1600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
