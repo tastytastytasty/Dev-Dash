@@ -56,8 +56,23 @@
 
   <!-- ===== GAMEPLAY SCREEN ===== -->
   <div id="screen-game" class="screen">
-    <div class="container">
+    <div class="game-layout">
+
+      <!-- Shared header (compact variant) -->
+      <header class="game-header game-header--compact">
+        <h1 class="game-title">Dev<span class="accent">Dash</span></h1>
+        <p class="game-subtitle">Type fast. Score big.</p>
+        <button id="theme-toggle-game" class="btn-icon" aria-label="Toggle theme">
+          <i class="bx bx-sun icon-sun"></i>
+          <i class="bx bx-moon icon-moon"></i>
+        </button>
+      </header>
+
+      <!-- Top bar: home + stats -->
       <div class="game-topbar">
+        <button id="btn-home" class="btn-home" aria-label="Return to main menu">
+          <i class="bx bx-home-alt-2"></i>
+        </button>
         <div class="stat-box">
           <span class="stat-label">Score</span>
           <span class="stat-value" id="current-score">0</span>
@@ -72,6 +87,7 @@
         </div>
       </div>
 
+      <!-- Word display -->
       <div class="word-area">
         <div class="word-card">
           <span id="current-word">—</span>
@@ -79,21 +95,37 @@
         <div class="word-hint" id="word-hint">Start typing!</div>
       </div>
 
-      <div class="input-area">
-        <input
-          type="text"
-          id="word-input"
-          class="word-input"
-          placeholder="Type here and press Enter…"
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-          spellcheck="false"
-        />
+      <!-- Input anchored near keyboard -->
+      <div class="game-input-wrap">
+        <div class="input-area">
+          <input
+            type="text"
+            id="word-input"
+            class="word-input"
+            placeholder="Type here and press Enter…"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            enterkeyhint="done"
+          />
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
       </div>
 
-      <div class="progress-bar-wrap">
-        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- ===== CONFIRM MODAL ===== -->
+  <div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <h3 class="modal-title" id="modal-title">Leave Game?</h3>
+      <p class="modal-message">Your current progress will be lost. Are you sure you want to return to the main menu?</p>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn-secondary">Cancel</button>
+        <button id="modal-leave" class="btn-danger">Leave</button>
       </div>
     </div>
   </div>

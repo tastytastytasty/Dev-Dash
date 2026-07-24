@@ -1,6 +1,6 @@
 /* =========================================================
-   Dev Dash – script.js
-   Single JS file (TC-3 constraint) · Vanilla JS only
+  Dev Dash – script.js
+  Single JS file (TC-3 constraint) · Vanilla JS only
    ========================================================= */
 
 "use strict";
@@ -9,32 +9,32 @@
 const WORDS = {
   indonesian: {
     easy: [
-      "aku","dia","itu","ini","ada","bisa","mau","mau","cara","coba",
+      "aku","dia","itu","ini","ada","bisa","mau","main","cara","coba",
       "dua","emas","foto","gula","hari","ikut","jalan","kaca","lama","meja",
       "nama","obat","pagi","roti","satu","tahu","udah","vila","warna","yakin",
       "baju","buku","desa","gigi","hati","ikan","jual","kaki","lari","mata",
-      "nasi","orang","palu","raja","sapi","tiga","ular","visi","waktu","xtra",
+      "nasi","orang","palu","raja","sapi","tiga","ular","visi","waktu","ratu",
       "babi","cari","daun","elok","fajar","gaya","hebat","ibu","jago","kota",
       "laut","muda","niat","olah","pasar","ragam","salah","tawa","udara","vokal",
       "wali","anak","baru","cinta","dalam","enak","fana","guna","hidup","indah",
       "jarak","kunci","logam","modal","nomor","opini","putih","ruang","suara","turun",
-      "ubah","varsa","watak","xenia","yuk","zona","kebun","lebih","murah","niaga"
+      "ubah","rasa","watak","minum","yoyo","zona","kebun","lebih","murah","niaga"
     ],
     medium: [
       "belajar","cerdas","dahulu","empati","fasilitas","gelisah","harapan",
       "ikhlas","jadikan","karakter","langsung","manfaat","narasi","optimis",
-      "panggil","quality","respon","strategi","tempatan","ungkap","validasi",
-      "wawasan","xenial","yayasan","ziarah","adaptasi","bersama","cermat",
-      "dampak","efisien","faktual","gagasan","hadirkan","implikasi","jujuran",
-      "keadilan","lembaga","motivasi","negative","omzet","pencarian","relawan",
-      "spiritual","terbatas","usahakan","variabel","wicara","akhirnya","bagikan",
+      "panggil","kualitas","respon","strategi","tempat","ungkap","validasi",
+      "wawasan","ketahui","yayasan","ziarah","adaptasi","bersama","cermat",
+      "dampak","efisien","faktual","gagasan","hadirin","implikasi","kejujuran",
+      "keadilan","lembaga","motivasi","negatif","omset","pencarian","relawan",
+      "spiritual","terbatas","usahakan","wadah","wicara","akhirnya","bagikan",
       "carikan","definisi","ekspresi","formulir","gunakan","hubungan","identitas",
       "jaringan","kendali","layanan","masalah","naikkan","objektif","pelajari",
       "rancangan","sertakan","tentukan","ukurannya","verifikasi","wariskan",
-      "amankan","berhasil","ciptakan","direktur","ekonomis","figuran","giatkan",
+      "keamanan","berhasil","ciptaan","direktur","ekonomi","figuran","kegiatan",
       "hasilkan","instruksi","jelaskan","kerjakan","lanjutkan","manajemen",
       "nyatakan","operasional","pertumbuhan","raihlah","solusi","tingkatkan",
-      "ulaskan","vitalkan","wujudkan"
+      "ulaskan","utamakan","wujudkan"
     ],
     hard: [
       "bertanggung","keseimbangan","pembangunan","perpustakaan","keberlanjutan",
@@ -54,15 +54,15 @@ const WORDS = {
   english: {
     easy: [
       "ace","bag","cap","dig","egg","fan","gap","hat","ice","jar",
+      "book","tree","fish","bird","star","moon","rain","wind","fire","milk",
       "kit","log","map","net","oak","pen","run","sky","ten","use",
+      "door","road","cake","ball","frog","lion","bear","duck","boat","lamp",
       "van","wet","mix","yam","zip","arm","bat","cod","den","elf",
-      "fix","gym","hop","ink","jot","key","lip","mud","nap","orb",
-      "pet","quiz","rob","sat","tip","urn","vow","wax","axe","bay",
+      "king","ring","jump","rock","snow","wolf","ship","sand","leaf","song",
       "cat","dot","eve","fog","gnu","hub","imp","job","kin","leg",
-      "mob","nod","oil","pad","ray","sea","toy","vat","web","yen",
+      "hand","foot","play","game","time","home","park","desk","blue","pink",
       "abs","bid","cow","dip","ear","fly","gut","hot","ion","joy",
-      "lab","nag","ore","paw","rid","sob","tap","vim","win","zoo",
-      "add","bee","cry","dew","elm","fur","god","her","him","its"
+      "bird","lamp","milk","card","coin","ship","town","road","cake","love"
     ],
     medium: [
       "ability","balance","cabinet","defense","element","factory","goddess",
@@ -158,7 +158,8 @@ const difficultyBtns = document.querySelectorAll("#difficulty-options .opt-btn")
 const previewBestScore = document.getElementById("preview-best-score");
 const previewBestWps   = document.getElementById("preview-best-wps");
 const btnStart         = document.getElementById("btn-start");
-const themeToggle      = document.getElementById("theme-toggle");
+// All theme-toggle buttons (menu + game screen share the same handler)
+const themeToggles     = document.querySelectorAll(".btn-icon[aria-label='Toggle theme']");
 
 // Gameplay
 const currentScoreEl = document.getElementById("current-score");
@@ -171,6 +172,12 @@ const wordHint       = document.getElementById("word-hint");
 const wordInput      = document.getElementById("word-input");
 const progressBar    = document.getElementById("progress-bar");
 const timerBox       = document.querySelector(".timer-box");
+const btnHome        = document.getElementById("btn-home");
+
+// Modal
+const modalOverlay = document.getElementById("modal-overlay");
+const modalCancel  = document.getElementById("modal-cancel");
+const modalLeave   = document.getElementById("modal-leave");
 
 // Result
 const resultScore     = document.getElementById("result-score");
@@ -186,7 +193,7 @@ const btnMenu         = document.getElementById("btn-menu");
 const GAME_DURATION = 60;
 
 let state = {
-  category:   "english",
+  category:   "indonesian",
   difficulty: "easy",
   score:       0,
   submitted:   0,
@@ -218,6 +225,7 @@ function setBest(category, difficulty, metric, value) {
 
 /* ── Theme ── */
 function applyTheme(theme) {
+  // Preserve the playing class — only swap dark/light
   document.body.classList.remove("dark", "light");
   document.body.classList.add(theme);
   localStorage.setItem("devdash_theme", theme);
@@ -228,16 +236,82 @@ function initTheme() {
   applyTheme(saved);
 }
 
-themeToggle.addEventListener("click", () => {
-  const isLight = document.body.classList.contains("light");
-  applyTheme(isLight ? "dark" : "light");
+themeToggles.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const isLight = document.body.classList.contains("light");
+    applyTheme(isLight ? "dark" : "light");
+  });
 });
 
 /* ── Screen Navigation ── */
 function showScreen(name) {
   Object.values(screens).forEach(s => s.classList.remove("active"));
   screens[name].classList.add("active");
+
+  // body.playing locks scroll and enables full-dvh layout during gameplay
+  if (name === "game") {
+    document.body.classList.add("playing");
+  } else {
+    document.body.classList.remove("playing");
+  }
 }
+
+/* ── Confirmation Modal ── */
+function openModal() {
+  modalOverlay.classList.add("open");
+}
+
+function closeModal() {
+  modalOverlay.classList.remove("open");
+}
+
+function resetGameState() {
+  clearInterval(state.timerID);
+  state.running    = false;
+  state.score      = 0;
+  state.submitted  = 0;
+  state.timeLeft   = GAME_DURATION;
+  state.currentWord = "";
+  state.usedWords  = new Set();
+  wordInput.disabled = false;
+  wordInput.value    = "";
+  wordCard.classList.remove("correct", "wrong");
+  wordCard.style.borderColor = "";
+  timerBox.classList.remove("warn", "danger");
+}
+
+btnHome.addEventListener("click", () => {
+  openModal();
+});
+
+modalCancel.addEventListener("click", () => {
+  closeModal();
+  // Re-focus input so player can keep typing without an extra tap
+  if (state.running) wordInput.focus();
+});
+
+modalLeave.addEventListener("click", () => {
+  closeModal();
+  resetGameState();
+  updatePreview();
+  showScreen("menu");
+});
+
+// Close modal on overlay click (outside the card)
+modalOverlay.addEventListener("click", (e) => {
+  if (e.target === modalOverlay) {
+    closeModal();
+    if (state.running) wordInput.focus();
+  }
+});
+
+// Allow Escape key to cancel the modal
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modalOverlay.classList.contains("open")) {
+    closeModal();
+    if (state.running) wordInput.focus();
+  }
+});
 
 /* ── Menu Logic ── */
 function setActiveOption(group, value) {
@@ -441,8 +515,7 @@ btnRestart.addEventListener("click", () => {
 });
 
 btnMenu.addEventListener("click", () => {
-  clearInterval(state.timerID);
-  state.running = false;
+  resetGameState();
   updatePreview();
   showScreen("menu");
 });
